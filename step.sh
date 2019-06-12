@@ -27,7 +27,7 @@ git diff --name-status "$GIT_CLONE_COMMIT_HASH" "$GIT_CLONE_COMMIT_HASH"^
 
 LIST=$(git diff --name-status "$GIT_CLONE_COMMIT_HASH" "$GIT_CLONE_COMMIT_HASH"^)
 if [[ $LIST == *"$dir_name"* ]]; then
-    echo "It's there!"
+    echo "Files changed. Build should proceed."
     CHANGED=true
 else
     echo "Files not changed, should be skipped"
@@ -38,9 +38,10 @@ if [ -z "$BITRISE_GIT_MESSAGE" ]
 then
     echo "\$BITRISE_GIT_MESSAGE is empty - build is manual. Not skipping the build."
 else
-    echo "\$BITRISE_GIT_MESSAGE is NOT empty - build is triggered. Cancelling build NOW!"
+    echo "\$BITRISE_GIT_MESSAGE is NOT empty - build is triggered."
     if [ "$CHANGED" = false ];
     then
+        echo "Cancelling build NOW!"
         curl -X POST "https://api.bitrise.io/v0.1/apps/$BITRISE_APP_SLUG/builds/$BITRISE_BUILD_SLUG/abort" -H "accept: application/json" -H "Authorization: $BITRISE_ACCESS_TOKEN" -H "Content-Type: application/json" -d "{ \"abort_reason\": \"Files not changed\", \"abort_with_success\": true, \"skip_notifications\": true}"
     fi
 fi
