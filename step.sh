@@ -34,11 +34,11 @@ else
     CHANGED=false
 fi
 
-if [ -z "$GIT_CLONE_COMMIT" ]
+if [ -z "$BITRISE_GIT_MESSAGE" ]
 then
-    echo "\$GIT_CLONE_COMMIT is empty - build is manual"
+    echo "\$BITRISE_GIT_MESSAGE is empty - build is manual. Not skipping the build."
 else
-    echo "\$GIT_CLONE_COMMIT is NOT empty - build is triggered"
+    echo "\$BITRISE_GIT_MESSAGE is NOT empty - build is triggered. Cancelling build NOW!"
     if [ "$CHANGED" = false ];
     then
         curl -X POST "https://api.bitrise.io/v0.1/apps/$BITRISE_APP_SLUG/builds/$BITRISE_BUILD_SLUG/abort" -H "accept: application/json" -H "Authorization: $BITRISE_ACCESS_TOKEN" -H "Content-Type: application/json" -d "{ \"abort_reason\": \"Files not changed\", \"abort_with_success\": true, \"skip_notifications\": true}"
