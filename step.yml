@@ -1,9 +1,9 @@
 title: |-
   bitrise-abort-if-no-changes
 summary: |
-  Abort the build if no changes in specified directories
+  Abort the build if no changes in specified directories since previous commit and build is triggered automatically.
 description: |
-  This step cancels current build via Bitrise API if files were not changed in the specified directory between last two commits
+  This step cancels current build via Bitrise API if files were not changed in the specified directory between last two commits and build was triggered automatically.
 website: https://github.com/orestesgaolin/bitrise-step-bitrise-abort-if-no-changes
 source_code_url: https://github.com/orestesgaolin/bitrise-step-bitrise-abort-if-no-changes
 support_url: https://github.com/orestesgaolin/bitrise-step-bitrise-abort-if-no-changes/issues
@@ -37,4 +37,3 @@ inputs:
       summary: 
       is_expand: true
       is_required: true
-      value_options: []
