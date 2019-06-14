@@ -1,5 +1,5 @@
 title: |-
-  bitrise-abort-if-no-changes
+  Abort if no changes
 summary: |
   Abort the build if no changes in specified directories since previous commit and build is triggered automatically.
 description: |
