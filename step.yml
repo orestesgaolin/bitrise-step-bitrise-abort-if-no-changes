@@ -34,6 +34,11 @@ inputs:
   - dir_name:
     opts:
       title: "Exact or part of directory name that should be checked for changes since previous commit"
-      summary: 
+      is_expand: true
+      is_required: true
+  - bitrise_access_token:
+    opts:
+      title: "Bitrise access token to execute API queries"
+      summary: "See more here https://devcenter.bitrise.io/getting-started/account-security/#generating-personal-access-tokens-manually"
       is_expand: true
       is_required: true

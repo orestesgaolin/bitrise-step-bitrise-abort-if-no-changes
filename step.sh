@@ -36,13 +36,13 @@ fi
 
 if [ -z "$BITRISE_GIT_MESSAGE" ]
 then
-    echo "\$BITRISE_GIT_MESSAGE is empty - build is manual. Not skipping the build."
+    echo "\$BITRISE_GIT_MESSAGE is empty - therefore build is manually started. Not skipping the build."
 else
-    echo "\$BITRISE_GIT_MESSAGE is NOT empty - build is triggered."
+    echo "\$BITRISE_GIT_MESSAGE is NOT empty - therefore build is triggered automatically."
     if [ "$CHANGED" = false ];
     then
         echo "Cancelling build NOW!"
-        curl -X POST "https://api.bitrise.io/v0.1/apps/$BITRISE_APP_SLUG/builds/$BITRISE_BUILD_SLUG/abort" -H "accept: application/json" -H "Authorization: $BITRISE_ACCESS_TOKEN" -H "Content-Type: application/json" -d "{ \"abort_reason\": \"Files not changed\", \"abort_with_success\": true, \"skip_notifications\": true}"
+        curl -X POST "https://api.bitrise.io/v0.1/apps/$BITRISE_APP_SLUG/builds/$BITRISE_BUILD_SLUG/abort" -H "accept: application/json" -H "Authorization: $bitrise_access_token" -H "Content-Type: application/json" -d "{ \"abort_reason\": \"Files not changed\", \"abort_with_success\": true, \"skip_notifications\": true}"
     fi
 fi
 exit 0
