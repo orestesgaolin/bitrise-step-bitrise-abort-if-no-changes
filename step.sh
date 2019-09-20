@@ -22,16 +22,27 @@ set -e
 echo $GIT_CLONE_COMMIT
 echo $PR
 echo $dir_name
+echo $extra_dir_name
 
 git diff --name-status "$GIT_CLONE_COMMIT_HASH" "$GIT_CLONE_COMMIT_HASH"^
 
 LIST=$(git diff --name-status "$GIT_CLONE_COMMIT_HASH" "$GIT_CLONE_COMMIT_HASH"^)
+
 if [[ $LIST == *"$dir_name"* ]]; then
     echo "Files changed. Build should proceed."
     CHANGED=true
 else
-    echo "Files not changed, should be skipped"
+    echo "Files not changed in $dir_name, so build should be skipped, but let's check for the extra keywords"
     CHANGED=false
+    EXTRA_KEYWORDS=', ' read -r -a array <<< "$extra_dir_name"
+    for keyword in "${EXTRA_KEYWORDS[@]}"
+    do
+        echo "Checking against $keyword"
+        if [[ $LIST == *"$keyword"* ]]; then
+            echo "Keyword $keyword present in git commit, so build should proceed"
+            CHANGED=true
+        fi
+    done
 fi
 
 if [ -z "$BITRISE_GIT_MESSAGE" ]

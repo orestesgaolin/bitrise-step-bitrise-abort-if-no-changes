@@ -36,6 +36,11 @@ inputs:
       title: "Exact or part of directory name that should be checked for changes since previous commit"
       is_expand: true
       is_required: true
+  - extra_dir_name:
+    opts:
+      title: "Comma separated keywords to check against for changes since previous commit"
+      is_expand: true
+      is_required: false
   - bitrise_access_token:
     opts:
       title: "Bitrise access token to execute API queries"
