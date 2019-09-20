@@ -34,8 +34,8 @@ if [[ $LIST == *"$dir_name"* ]]; then
 else
     echo "Files not changed in $dir_name, so build should be skipped, but let's check for the extra keywords"
     CHANGED=false
-    EXTRA_KEYWORDS=',' read -r -a array <<< "$extra_dir_name"
-    for keyword in "${EXTRA_KEYWORDS[@]}"
+    IFS=',' read -r -a array <<< "$extra_dir_name"
+    for keyword in "${array[@]}"
     do
         echo "Checking against $keyword"
         if [[ $LIST == *"$keyword"* ]]; then
